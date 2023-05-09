@@ -7,6 +7,7 @@
 
 import React from 'react';
 import {
+  ImageBackground,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -15,51 +16,28 @@ import {
 } from 'react-native';
 import {RegistrationScreen} from './screens/RegistrationScreen';
 
+// const image = {
+//   uri: 'https://etnosoft.com.ua/wp-content/uploads/2018/12/zumova-hruroda-oboi-na-telefon-9.jpg',
+// };
+
 function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style={styles.highlight}></StatusBar>
-      <ScrollView>
-        <RegistrationScreen />
-      </ScrollView>
-    </SafeAreaView>
-    // <SafeAreaView style={backgroundStyle}>
-    //   <StatusBar
-    //     barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-    //     backgroundColor={backgroundStyle.backgroundColor}
-    //   />
-    //   <ScrollView
-    //     contentInsetAdjustmentBehavior="automatic"
-    //     style={backgroundStyle}>
-    //     <Header />
-    //     <View
-    //       style={{
-    //         backgroundColor: isDarkMode ? Colors.black : Colors.white,
-    //       }}>
-    //       <Section title="Step One">
-    //         Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-    //         screen and then come back to see your edits.
-    //       </Section>
-    //       <Section title="See Your Changes">
-    //         <ReloadInstructions />
-    //       </Section>
-    //       <Section title="Debug">
-    //         <DebugInstructions />
-    //       </Section>
-    //       <Section title="Learn More">
-    //         Read the docs to discover what to do next:
-    //       </Section>
-    //       <LearnMoreLinks />
-    //     </View>
-    //   </ScrollView>
-    // </SafeAreaView>
+    <ImageBackground
+      source={require('./images/PhotoBG.png')}
+      resizeMode="cover"
+      style={styles.image}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          <RegistrationScreen />
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
+
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'red',
-  },
+
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
@@ -73,9 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
   },
-  highlight: {
-    backgroundColor: 'red',
-  },
+
 });
 
 export default App;

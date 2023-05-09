@@ -12,6 +12,8 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
+// import AntdesignIcon from 'react-native-vector-icons/AntDesign';
+import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 
 export const RegistrationScreen = () => {
   const {register, handleSubmit, setValue} = useForm();
@@ -32,78 +34,91 @@ export const RegistrationScreen = () => {
     register('password');
   }, [register]);
 
-
   return (
-    <ScrollView>
-      {/* <Icon name="rocket" size={30} color="#900" /> */}
-      {/* <Icon.Button /> */}
-      <View style={styles.container}>
-      
-
-
-        <View style={styles.boxForPhoto}></View>
-        <Text style={styles.welcome}>Реєстрація</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.containerKey}>
-          {/* <View style={styles.box}> */}
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.box}>
-              <TextInput
-                style={styles.input}
-                autoCompleteType="text"
-                placeholder="Логін"
-                keyboardType="text"
-                onChangeText={onChangeField('password')}
-              />
-
-              <TextInput
-                style={styles.input}
-                autoCompleteType="email"
-                keyboardType="email-address"
-                textContentType="emailAddress"
-                placeholder="адреса електроонної пошти"
-                onChangeText={onChangeField('email')}
-              />
-              <View style={styles.boxPassword}>
-                <TextInput
-                  style={styles.input}
-                  secureTextEntry
-                  autoCompleteType="password"
-                  placeholder="Пароль"
-                  onChangeText={onChangeField('password')}></TextInput>
-                {/* <Text>Показати</Text> */}
-              </View>
-              <View style={styles.buttonSubmit}>
-                <Button
-                  title="Зареєструватись"
-                  onPress={handleSubmit(onSubmit)}
-                  color="#FFFFFF"
-                />
-              </View>
-              <Text style={styles.loginText}>Вже є акаунт? Увійти</Text>
-            </View>
-          </TouchableWithoutFeedback>
-          {/* </View> */}
-        </KeyboardAvoidingView>
+    <View style={styles.container}>
+      <View style={styles.boxForPhoto}>
+        <View style={styles.wrapSvg}>
+          <EvilIconsIcon
+            name="plus"
+            size={25}
+            color="#FF6C00"
+            borderRadius={10}
+          />
+        </View>
       </View>
-    </ScrollView>
+      <Text style={styles.welcome}>Реєстрація</Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.containerKey}>
+        {/* <View style={styles.box}> */}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.box}>
+            <TextInput
+              style={styles.input}
+              autoCompleteType="text"
+              placeholder="Логін"
+              keyboardType="numeric"
+              onChangeText={onChangeField('password')}
+            />
+
+            <TextInput
+              style={styles.input}
+              autoCompleteType="email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
+              placeholder="адреса електроонної пошти"
+              onChangeText={onChangeField('email')}
+            />
+            <View style={styles.boxPassword}>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                autoCompleteType="password"
+                placeholder="Пароль"
+                onChangeText={onChangeField('password')}></TextInput>
+              <Text style={styles.textShow}>Показати</Text>
+            </View>
+            <View style={styles.buttonSubmit}>
+              <Button
+                title="Зареєструватись"
+                onPress={handleSubmit(onSubmit)}
+                color="#FFFFFF"
+              />
+            </View>
+            <Text style={styles.loginText}>Вже є акаунт? Увійти</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        {/* </View> */}
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
+  textShow: {
+    position: 'absolute',
+    left: 265,
+    color: '#1B4371',
+  },
+  wrapSvg: {
+    position: 'absolute',
+    left: 100,
+    top: 80,
+  },
   boxForPhoto: {
+    position: 'relative',
     height: 120,
     width: 120,
     backgroundColor: '#F6F6F6',
     textAlign: 'center',
     marginTop: -60,
-    borderRadius:16,
+    borderRadius: 16,
   },
   loginText: {
     color: '#1B4371',
     textAlign: 'center',
   },
   boxPassword: {
+    position: 'relative',
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 43,
