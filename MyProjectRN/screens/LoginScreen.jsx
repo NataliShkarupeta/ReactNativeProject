@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 
-export const LoginScreen = () => {
+export const LoginScreen = ({hasAccount}) => {
       const {register, handleSubmit, setValue} = useForm();
 
       const onSubmit = useCallback(formData => {
@@ -57,12 +57,14 @@ export const LoginScreen = () => {
             </View>
             <View style={styles.buttonSubmit}>
               <Button
-                title="Зареєструватись"
+                title="Війти"
                 onPress={handleSubmit(onSubmit)}
                 color="#FFFFFF"
               />
             </View>
-            <Text style={styles.loginText}>Нема акаунта? Зареєструватись</Text>
+            <Text onPress={()=>hasAccount(false)} style={styles.loginText}>
+              Нема акаунта? Зареєструватись
+            </Text>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

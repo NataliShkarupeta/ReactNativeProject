@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ImageBackground,
   SafeAreaView,
@@ -22,6 +22,11 @@ import { LoginScreen } from './screens/LoginScreen';
 // };
 
 function App() {
+  const [users,setUsers]=useState({})
+  const[hasAccount,setHasAccount]=useState(false)
+  console.log('users', users);
+
+
   return (
     <ImageBackground
       source={require('./images/PhotoBG.png')}
@@ -29,12 +34,17 @@ function App() {
       style={styles.image}>
       <SafeAreaView style={styles.container}>
         <ScrollView>
-          <LoginScreen/>
-          {/* <RegistrationScreen /> */}
+          {!hasAccount ? (
+            <RegistrationScreen
+              createUser={setUsers}
+              hasAccount={setHasAccount}
+            />
+          ) : (
+            <LoginScreen hasAccount={setHasAccount} />
+          )}
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
-
   );
 }
 

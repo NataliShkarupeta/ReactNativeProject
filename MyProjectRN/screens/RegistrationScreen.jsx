@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {
   StyleSheet,
@@ -10,16 +10,23 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-  ScrollView,
 } from 'react-native';
-// import AntdesignIcon from 'react-native-vector-icons/AntDesign';
-import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
+// import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
+import uuid from 'react-native-uuid';
 
-export const RegistrationScreen = () => {
+export const RegistrationScreen = ({createUser, hasAccount}) => {
   const {register, handleSubmit, setValue} = useForm();
+  // const [user, setUser] = useState('');
 
   const onSubmit = useCallback(formData => {
     console.log(formData);
+    createUser(users => {
+      const newUser = {
+        ...formData,
+        id: uuid.v4(),
+      };
+      return {...users, [newUser.id]: {...newUser}};
+    });
   }, []);
 
   const onChangeField = useCallback(
@@ -38,27 +45,25 @@ export const RegistrationScreen = () => {
     <View style={styles.container}>
       <View style={styles.boxForPhoto}>
         <View style={styles.wrapSvg}>
-          <EvilIconsIcon
+          {/* <EvilIconsIcon
             name="plus"
             size={25}
             color="#FF6C00"
             borderRadius={10}
-          />
+          /> */}
         </View>
       </View>
       <Text style={styles.welcome}>Реєстрація</Text>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.containerKey}>
-        {/* <View style={styles.box}> */}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.box}>
             <TextInput
               style={styles.input}
               autoCompleteType="text"
               placeholder="Логін"
-              // keyboardType="numeric"
-              onChangeText={onChangeField('password')}
+              onChangeText={onChangeField('login')}
             />
             <TextInput
               style={styles.input}
@@ -84,7 +89,9 @@ export const RegistrationScreen = () => {
                 color="#FFFFFF"
               />
             </View>
-            <Text style={styles.loginText}>Вже є акаунт? Увійти</Text>
+            <Text onPress={() => hasAccount(true)} style={styles.loginText}>
+              Вже є акаунт? Увійти
+            </Text>
           </View>
         </TouchableWithoutFeedback>
         {/* </View> */}
