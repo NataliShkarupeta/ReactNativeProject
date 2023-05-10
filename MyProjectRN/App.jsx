@@ -5,8 +5,9 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
+  Dimensions,
   ImageBackground,
   SafeAreaView,
   ScrollView,
@@ -15,17 +16,12 @@ import {
   Text,
 } from 'react-native';
 import {RegistrationScreen} from './screens/RegistrationScreen';
-import { LoginScreen } from './screens/LoginScreen';
-
-// const image = {
-//   uri: 'https://etnosoft.com.ua/wp-content/uploads/2018/12/zumova-hruroda-oboi-na-telefon-9.jpg',
-// };
+import {LoginScreen} from './screens/LoginScreen';
 
 function App() {
-  const [users,setUsers]=useState({})
-  const[hasAccount,setHasAccount]=useState(false)
+  const [users, setUsers] = useState({});
+  const [hasAccount, setHasAccount] = useState(false);
   console.log('users', users);
-
 
   return (
     <ImageBackground
@@ -49,21 +45,14 @@ function App() {
 }
 
 const styles = StyleSheet.create({
-
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-
+  image: {
+    justifyContent: 'flex-end',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  }
 });
 
 export default App;

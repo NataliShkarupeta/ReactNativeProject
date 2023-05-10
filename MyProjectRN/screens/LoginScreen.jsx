@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Button,
@@ -14,6 +14,7 @@ import {
 
 export const LoginScreen = ({hasAccount}) => {
       const {register, handleSubmit, setValue} = useForm();
+      const[profile,setProfile]=useState(false)
 
       const onSubmit = useCallback(formData => {
         console.log(formData);
