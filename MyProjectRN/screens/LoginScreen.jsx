@@ -1,65 +1,43 @@
-import {useCallback, useEffect} from 'react';
-import {useForm} from 'react-hook-form';
+import { useCallback, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import {
+  Button,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
-  View,
   TextInput,
-  Button,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  Keyboard,
-  Platform,
-  ScrollView,
+  View,
 } from 'react-native';
-// import AntdesignIcon from 'react-native-vector-icons/AntDesign';
-import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 
-export const RegistrationScreen = () => {
-  const {register, handleSubmit, setValue} = useForm();
+export const LoginScreen = () => {
+      const {register, handleSubmit, setValue} = useForm();
 
-  const onSubmit = useCallback(formData => {
-    console.log(formData);
-  }, []);
+      const onSubmit = useCallback(formData => {
+        console.log(formData);
+      }, []);
 
-  const onChangeField = useCallback(
-    name => text => {
-      setValue(name, text);
-    },
-    [],
-  );
+      const onChangeField = useCallback(
+        name => text => {
+          setValue(name, text);
+        },
+        [],
+      );
 
-  useEffect(() => {
-    register('email');
-    register('password');
-  }, [register]);
-
+      useEffect(() => {
+        register('email');
+        register('password');
+      }, [register]);
   return (
     <View style={styles.container}>
-      <View style={styles.boxForPhoto}>
-        <View style={styles.wrapSvg}>
-          <EvilIconsIcon
-            name="plus"
-            size={25}
-            color="#FF6C00"
-            borderRadius={10}
-          />
-        </View>
-      </View>
-      <Text style={styles.welcome}>Реєстрація</Text>
+      <Text style={styles.welcome}>Війти</Text>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.containerKey}>
-        {/* <View style={styles.box}> */}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.box}>
-            <TextInput
-              style={styles.input}
-              autoCompleteType="text"
-              placeholder="Логін"
-              // keyboardType="numeric"
-              onChangeText={onChangeField('password')}
-            />
             <TextInput
               style={styles.input}
               autoCompleteType="email"
@@ -84,10 +62,9 @@ export const RegistrationScreen = () => {
                 color="#FFFFFF"
               />
             </View>
-            <Text style={styles.loginText}>Вже є акаунт? Увійти</Text>
+            <Text style={styles.loginText}>Нема акаунта? Зареєструватись</Text>
           </View>
         </TouchableWithoutFeedback>
-        {/* </View> */}
       </KeyboardAvoidingView>
     </View>
   );
@@ -97,20 +74,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 265,
     color: '#1B4371',
-  },
-  wrapSvg: {
-    position: 'absolute',
-    left: 100,
-    top: 80,
-  },
-  boxForPhoto: {
-    position: 'relative',
-    height: 120,
-    width: 120,
-    backgroundColor: '#F6F6F6',
-    textAlign: 'center',
-    marginTop: -60,
-    borderRadius: 16,
   },
   loginText: {
     color: '#1B4371',
@@ -143,8 +106,7 @@ const styles = StyleSheet.create({
   container: {
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    // marginTop: 263,
-    marginTop: 163,
+    marginTop: 263,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -157,9 +119,6 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     lineHeight: 35,
     marginBottom: 32,
-  },
-  image: {
-    marginBottom: 20,
   },
   input: {
     padding: 10,

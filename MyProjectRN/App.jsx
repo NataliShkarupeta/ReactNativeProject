@@ -15,6 +15,7 @@ import {
   Text,
 } from 'react-native';
 import {RegistrationScreen} from './screens/RegistrationScreen';
+import { LoginScreen } from './screens/LoginScreen';
 
 // const image = {
 //   uri: 'https://etnosoft.com.ua/wp-content/uploads/2018/12/zumova-hruroda-oboi-na-telefon-9.jpg',
@@ -28,7 +29,8 @@ function App() {
       style={styles.image}>
       <SafeAreaView style={styles.container}>
         <ScrollView>
-          <RegistrationScreen />
+          <LoginScreen/>
+          {/* <RegistrationScreen /> */}
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
