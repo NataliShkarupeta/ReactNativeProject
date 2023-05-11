@@ -17,11 +17,14 @@ import {
 } from 'react-native';
 import {RegistrationScreen} from './screens/RegistrationScreen';
 import {LoginScreen} from './screens/LoginScreen';
+import {PostsScreen} from './screens/PostsScreen';
 
 function App() {
   const [users, setUsers] = useState({});
   const [hasAccount, setHasAccount] = useState(false);
-  console.log('users', users);
+  const [user, setUser] = useState('');
+  // console.log('users', users);
+
 
   return (
     <ImageBackground
@@ -29,14 +32,21 @@ function App() {
       resizeMode="cover"
       style={styles.image}>
       <SafeAreaView style={styles.container}>
+       
         <ScrollView>
-          {!hasAccount ? (
+          {user ? (
+            <PostsScreen user={user} />
+          ) : !hasAccount ? (
             <RegistrationScreen
               createUser={setUsers}
               hasAccount={setHasAccount}
             />
           ) : (
-            <LoginScreen hasAccount={setHasAccount} />
+            <LoginScreen
+              hasAccount={setHasAccount}
+              allUsers={users}
+              setUser={setUser}
+            />
           )}
         </ScrollView>
       </SafeAreaView>
@@ -52,7 +62,7 @@ const styles = StyleSheet.create({
     top: 0,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-  }
+  },
 });
 
 export default App;

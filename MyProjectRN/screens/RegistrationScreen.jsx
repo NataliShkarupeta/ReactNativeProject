@@ -16,7 +16,7 @@ import uuid from 'react-native-uuid';
 
 export const RegistrationScreen = ({createUser, hasAccount}) => {
   const {register, handleSubmit, setValue} = useForm();
-  // const [user, setUser] = useState('');
+ 
 
   const onSubmit = useCallback(formData => {
     console.log(formData);
@@ -27,6 +27,7 @@ export const RegistrationScreen = ({createUser, hasAccount}) => {
       };
       return {...users, [newUser.id]: {...newUser}};
     });
+
   }, []);
 
   const onChangeField = useCallback(

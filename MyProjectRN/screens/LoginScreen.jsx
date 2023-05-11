@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import {useCallback, useEffect, useState} from 'react';
+import {useForm} from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 import {
   Button,
   Keyboard,
@@ -12,25 +13,39 @@ import {
   View,
 } from 'react-native';
 
-export const LoginScreen = ({hasAccount}) => {
-      const {register, handleSubmit, setValue} = useForm();
-      const[profile,setProfile]=useState(false)
+export const LoginScreen = ({hasAccount, allUsers, setUser}) => {
+  const {register, handleSubmit, setValue} = useForm();
+  const [profile, setProfile] = useState(false);
 
-      const onSubmit = useCallback(formData => {
-        console.log(formData);
-      }, []);
+  const onSubmit = useCallback(formData => {
+    console.log(formData);
+    
+    const account = Object.values(allUsers).find(
+      user =>
+        user.email === formData.email && user.password === formData.password,
+    );
+    if (account) {
+      setUser(account);
+    } else {
+      // promt('Такого користувача не існує!');
+      Toast.show({
+        type: 'error',
+        text1: 'Такого користувача не існує!',
+      });
+    }
+  }, []);
 
-      const onChangeField = useCallback(
-        name => text => {
-          setValue(name, text);
-        },
-        [],
-      );
+  const onChangeField = useCallback(
+    name => text => {
+      setValue(name, text);
+    },
+    [],
+  );
 
-      useEffect(() => {
-        register('email');
-        register('password');
-      }, [register]);
+  useEffect(() => {
+    register('email');
+    register('password');
+  }, [register]);
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>Війти</Text>
@@ -63,7 +78,7 @@ export const LoginScreen = ({hasAccount}) => {
                 color="#FFFFFF"
               />
             </View>
-            <Text onPress={()=>hasAccount(false)} style={styles.loginText}>
+            <Text onPress={() => hasAccount(false)} style={styles.loginText}>
               Нема акаунта? Зареєструватись
             </Text>
           </View>
