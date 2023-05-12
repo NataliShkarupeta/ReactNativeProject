@@ -1,49 +1,48 @@
-import {
-  Button,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Button, ScrollView, StyleSheet, Text, View} from 'react-native';
 import FeatherIcons from 'react-native-vector-icons/Feather';
+import {PostsContext} from '../postsContext';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {CreatePost} from './CreatePostsScreen';
+import {Profile} from './ProfileScreen';
+import {AllPostsScreen} from './Home';
 
-export const PostsScreen = ({user}) => {
-//   console.log('user', user);
+const Tab = createBottomTabNavigator();
+
+export const Posts = () => {
+  //   console.log('user', user);
   return (
     <ScrollView style={styles.common}>
       <View style={styles.wrap}>
         <Text style={styles.wrapTextPosts}>Пости</Text>
         <View style={styles.boxSvg}>
-          {/* <FeatherIcons name="log-in" color="#BDBDBD" size={24} /> */}
+          <FeatherIcons name="log-in" color="#BDBDBD" size={24} />
         </View>
       </View>
       <View style={styles.infoUser}>
         <View style={styles.photo}></View>
         <View style={styles.dataUser}>
-          <Text style={styles.name}>{user.login}</Text>
+          <Text style={styles.name}>
+            {/* {user.login} */}
+            QWert
+          </Text>
           <Text style={styles.email}>
-            {user.email}
+            {/* {user.email} */}
+            QWert
           </Text>
         </View>
-      </View>
-      <View style={styles.tabBar}>
-        {/* <Button> */}
-        <FeatherIcons name="grid" color="#BDBDBD" size={24} />
-        {/* </Button> */}
-        <View style={styles.centralBut}>
-          <Button title="" />
-        </View>
-
-        {/* <Button> */}
-        <FeatherIcons name="user" color="#BDBDBD" size={24} />
-        {/* </Button> */}
       </View>
     </ScrollView>
   );
 };
 
+// PostsScreen.contextType = PostsContext;
+
 const styles = StyleSheet.create({
+  cub: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#BDBDBD',
+  },
   centralBut: {
     width: 70,
     height: 40,
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   name: {
-    paddingTop:3,
+    paddingTop: 3,
     fontWeight: 700,
     fontSize: 13,
     lineHeight: 11,
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
     marginLeft: 16,
-    height: 450,
+    // height: 10,
     alignSelf: 'stretch',
   },
   boxSvg: {

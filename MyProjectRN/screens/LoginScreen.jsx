@@ -6,33 +6,40 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { PostsContext } from '../postsContext';
 
-export const LoginScreen = ({hasAccount, allUsers, setUser}) => {
+export const LoginScreen = ({hasAccount, allUsers, setUser }) => {
   const {register, handleSubmit, setValue} = useForm();
-  const [profile, setProfile] = useState(false);
+  // const [profile, setProfile] = useState(false);
+  const navigation= useNavigation();
+
 
   const onSubmit = useCallback(formData => {
     console.log(formData);
-    
-    const account = Object.values(allUsers).find(
-      user =>
-        user.email === formData.email && user.password === formData.password,
-    );
-    if (account) {
-      setUser(account);
-    } else {
-      // promt('Такого користувача не існує!');
-      Toast.show({
-        type: 'error',
-        text1: 'Такого користувача не існує!',
-      });
-    }
+
+    // const account = Object.values(allUsers).find(
+    //   user =>
+    //     user.email === formData.email && user.password === formData.password,
+    // );
+    // if (account) {
+    //   setUser(account);
+    //   navigation.navigate('Home');
+    // } else {
+    //   // promt('Такого користувача не існує!');
+    //   Toast.show({
+    //     type: 'error',
+    //     text1: 'Такого користувача не існує!',
+    //   });
+    // }
+     navigation.navigate('Home');
   }, []);
 
   const onChangeField = useCallback(
@@ -47,44 +54,48 @@ export const LoginScreen = ({hasAccount, allUsers, setUser}) => {
     register('password');
   }, [register]);
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Війти</Text>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.containerKey}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.box}>
-            <TextInput
-              style={styles.input}
-              autoCompleteType="email"
-              keyboardType="email-address"
-              textContentType="emailAddress"
-              placeholder="адреса електроонної пошти"
-              onChangeText={onChangeField('email')}
-            />
-            <View style={styles.boxPassword}>
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Війти</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.containerKey}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.box}>
               <TextInput
                 style={styles.input}
-                secureTextEntry
-                autoCompleteType="password"
-                placeholder="Пароль"
-                onChangeText={onChangeField('password')}></TextInput>
-              <Text style={styles.textShow}>Показати</Text>
-            </View>
-            <View style={styles.buttonSubmit}>
-              <Button
-                title="Війти"
-                onPress={handleSubmit(onSubmit)}
-                color="#FFFFFF"
+                autoCompleteType="email"
+                keyboardType="email-address"
+                textContentType="emailAddress"
+                placeholder="адреса електроонної пошти"
+                onChangeText={onChangeField('email')}
               />
+              <View style={styles.boxPassword}>
+                <TextInput
+                  style={styles.input}
+                  secureTextEntry
+                  autoCompleteType="password"
+                  placeholder="Пароль"
+                  onChangeText={onChangeField('password')}></TextInput>
+                <Text style={styles.textShow}>Показати</Text>
+              </View>
+              <View style={styles.buttonSubmit}>
+                <Button
+                  title="Війти"
+                  onPress={handleSubmit(onSubmit)}
+                  color="#FFFFFF"
+                />
+              </View>
+              <Text
+                // onPress={() => hasAccount(false)} style={styles.loginText}
+                onPress={() => navigation.navigate('Registration')}>
+                Нема акаунта? Зареєструватись
+              </Text>
             </View>
-            <Text onPress={() => hasAccount(false)} style={styles.loginText}>
-              Нема акаунта? Зареєструватись
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </View>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({
@@ -148,3 +159,4 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
 });
+// LoginScreen.contextType = PostsContext;

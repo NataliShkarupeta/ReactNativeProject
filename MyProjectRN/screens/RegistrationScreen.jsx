@@ -1,4 +1,5 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {useCallback, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {
   StyleSheet,
@@ -10,24 +11,26 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
+  ScrollView,
 } from 'react-native';
 // import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 import uuid from 'react-native-uuid';
+import {PostsContext} from '../postsContext';
 
 export const RegistrationScreen = ({createUser, hasAccount}) => {
   const {register, handleSubmit, setValue} = useForm();
- 
+  const navigation = useNavigation();
 
   const onSubmit = useCallback(formData => {
     console.log(formData);
-    createUser(users => {
-      const newUser = {
-        ...formData,
-        id: uuid.v4(),
-      };
-      return {...users, [newUser.id]: {...newUser}};
-    });
-
+    // createUser(users => {
+    //   const newUser = {
+    //     ...formData,
+    //     id: uuid.v4(),
+    //   };
+    //   return {...users, [newUser.id]: {...newUser}};
+    // });
+    navigation.navigate('Home');
   }, []);
 
   const onChangeField = useCallback(
@@ -43,61 +46,65 @@ export const RegistrationScreen = ({createUser, hasAccount}) => {
   }, [register]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.boxForPhoto}>
-        <View style={styles.wrapSvg}>
-          {/* <EvilIconsIcon
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.boxForPhoto}>
+          <View style={styles.wrapSvg}>
+            {/* <EvilIconsIcon
             name="plus"
             size={25}
             color="#FF6C00"
             borderRadius={10}
           /> */}
+          </View>
         </View>
-      </View>
-      <Text style={styles.welcome}>Реєстрація</Text>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.containerKey}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.box}>
-            <TextInput
-              style={styles.input}
-              autoCompleteType="text"
-              placeholder="Логін"
-              onChangeText={onChangeField('login')}
-            />
-            <TextInput
-              style={styles.input}
-              autoCompleteType="email"
-              keyboardType="email-address"
-              textContentType="emailAddress"
-              placeholder="адреса електроонної пошти"
-              onChangeText={onChangeField('email')}
-            />
-            <View style={styles.boxPassword}>
+        <Text style={styles.welcome}>Реєстрація</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.containerKey}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.box}>
               <TextInput
                 style={styles.input}
-                secureTextEntry
-                autoCompleteType="password"
-                placeholder="Пароль"
-                onChangeText={onChangeField('password')}></TextInput>
-              <Text style={styles.textShow}>Показати</Text>
-            </View>
-            <View style={styles.buttonSubmit}>
-              <Button
-                title="Зареєструватись"
-                onPress={handleSubmit(onSubmit)}
-                color="#FFFFFF"
+                autoCompleteType="text"
+                placeholder="Логін"
+                onChangeText={onChangeField('login')}
               />
+              <TextInput
+                style={styles.input}
+                autoCompleteType="email"
+                keyboardType="email-address"
+                textContentType="emailAddress"
+                placeholder="адреса електроонної пошти"
+                onChangeText={onChangeField('email')}
+              />
+              <View style={styles.boxPassword}>
+                <TextInput
+                  style={styles.input}
+                  secureTextEntry
+                  autoCompleteType="password"
+                  placeholder="Пароль"
+                  onChangeText={onChangeField('password')}></TextInput>
+                <Text style={styles.textShow}>Показати</Text>
+              </View>
+              <View style={styles.buttonSubmit}>
+                <Button
+                  title="Зареєструватись"
+                  onPress={handleSubmit(onSubmit)}
+                  color="#FFFFFF"
+                />
+              </View>
+              <Text
+                // onPress={() => hasAccount(true)} style={styles.loginText}
+                onPress={() => navigation.navigate('Login')}>
+                Вже є акаунт? Увійти
+              </Text>
             </View>
-            <Text onPress={() => hasAccount(true)} style={styles.loginText}>
-              Вже є акаунт? Увійти
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
-        {/* </View> */}
-      </KeyboardAvoidingView>
-    </View>
+          </TouchableWithoutFeedback>
+          {/* </View> */}
+        </KeyboardAvoidingView>
+      </View>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({
@@ -179,3 +186,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
 });
+
+// RegistrationScreen.contextType= PostsContext;

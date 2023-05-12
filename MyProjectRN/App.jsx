@@ -17,40 +17,54 @@ import {
 } from 'react-native';
 import {RegistrationScreen} from './screens/RegistrationScreen';
 import {LoginScreen} from './screens/LoginScreen';
-import {PostsScreen} from './screens/PostsScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {PostsContext} from './postsContext';
+import {AllPostsScreen} from './screens/Home';
+
+const Stack = createNativeStackNavigator();
 
 function App() {
   const [users, setUsers] = useState({});
   const [hasAccount, setHasAccount] = useState(false);
   const [user, setUser] = useState('');
+  
   // console.log('users', users);
 
-
   return (
-    <ImageBackground
-      source={require('./images/PhotoBG.png')}
-      resizeMode="cover"
-      style={styles.image}>
-      <SafeAreaView style={styles.container}>
-       
-        <ScrollView>
-          {user ? (
-            <PostsScreen user={user} />
-          ) : !hasAccount ? (
-            <RegistrationScreen
-              createUser={setUsers}
-              hasAccount={setHasAccount}
-            />
-          ) : (
-            <LoginScreen
-              hasAccount={setHasAccount}
-              allUsers={users}
-              setUser={setUser}
-            />
-          )}
-        </ScrollView>
-      </SafeAreaView>
-    </ImageBackground>
+    // <PostsContext.Provider>
+    // <ImageBackground
+    //   source={require('./images/PhotoBG.png')}
+    //   resizeMode="cover"
+    //   style={styles.image}>
+      <NavigationContainer>
+        {/* <SafeAreaView style={styles.container}> */}
+
+        <Stack.Navigator initialRouteName="Registration">
+          <Stack.Screen name="Registration" component={RegistrationScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Home" component={AllPostsScreen} />
+        </Stack.Navigator>
+
+        {/* {user ? (
+              <PostsScreen user={user} />
+            ) : !hasAccount ? (
+              <RegistrationScreen
+                createUser={setUsers}
+                hasAccount={setHasAccount}
+              />
+            ) : (
+              <LoginScreen
+                hasAccount={setHasAccount}
+                allUsers={users}
+                setUser={setUser}
+              />
+            )} */}
+
+        {/* </SafeAreaView> */}
+      </NavigationContainer>
+    // </ImageBackground>
+    // </PostsContext.Provider>
   );
 }
 
